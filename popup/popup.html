@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="popup.css" />
+    <title>FlowKeep</title>
+  </head>
+  <body>
+    <header class="fk-head">
+      <div class="fk-mark">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+          <path
+            d="M4 16 A8 8 0 0 1 20 16"
+            fill="none"
+            stroke="#272e39"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+          <path
+            d="M4 16 A8 8 0 0 1 14.5 8.4"
+            fill="none"
+            stroke="#2dd4bf"
+            stroke-width="2.4"
+            stroke-linecap="round"
+          />
+          <line x1="12" y1="16" x2="15" y2="10.5" stroke="#e6eaf0" stroke-width="1.6" stroke-linecap="round" />
+          <circle cx="12" cy="16" r="1.6" fill="#e6eaf0" />
+        </svg>
+        <span>FlowKeep</span>
+      </div>
+      <span class="fk-plan-tag" id="fk-status">Claude</span>
+    </header>
+
+    <section class="fk-gauge">
+      <div class="fk-gauge-top">
+        <span class="fk-gauge-num" id="fk-tokens">—</span>
+        <span class="fk-gauge-of" id="fk-budget">/ —</span>
+      </div>
+      <div class="fk-bar"><div class="fk-bar-fill" id="fk-fill"></div></div>
+      <div class="fk-gauge-foot">
+        <span id="fk-pct">—%</span>
+        <span id="fk-reset">resets in —</span>
+      </div>
+    </section>
+
+    <section class="fk-block">
+      <label class="fk-field-label" for="fk-plan">Session budget estimate</label>
+      <select id="fk-plan" class="fk-select">
+        <option value="45000">Free (~45k)</option>
+        <option value="190000" selected>Pro (~190k)</option>
+        <option value="900000">Max 5x (~900k)</option>
+        <option value="1800000">Max 20x (~1.8M)</option>
+      </select>
+      <p class="fk-hint">
+        Caps aren't published, so this is an estimate you tune to match when you actually hit limits.
+      </p>
+    </section>
+
+    <section class="fk-actions">
+      <button class="fk-btn" id="fk-snapshot">Save snapshot</button>
+      <button class="fk-btn" id="fk-reset-btn">Reset session</button>
+    </section>
+
+    <section class="fk-block">
+      <label class="fk-field-label" for="fk-target">Hand off to</label>
+      <select id="fk-target" class="fk-select">
+        <option value="gemini" selected>Gemini</option>
+        <option value="chatgpt">ChatGPT</option>
+        <option value="groq">Groq</option>
+      </select>
+      <button class="fk-btn fk-btn-primary" id="fk-handoff">Hand off now ↗</button>
+    </section>
+
+    <footer class="fk-foot">
+      <span id="fk-msg">Open a Claude tab to start tracking.</span>
+    </footer>
+
+    <script src="../lib/browser-polyfill.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

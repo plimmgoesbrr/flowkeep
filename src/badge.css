@@ -1,0 +1,161 @@
+/*
+ * FlowKeep badge — a small instrument panel pinned to the page.
+ * Visual language: cockpit gauge. Dark machined surface, monospace numerics,
+ * a single graded arc that reads at a glance. Everything quiet except the bar.
+ */
+
+#flowkeep-badge {
+  --fk-ink: #0e1116;
+  --fk-surface: #171b22;
+  --fk-line: #272e39;
+  --fk-text: #e6eaf0;
+  --fk-muted: #8a93a3;
+  --fk-safe: #2dd4bf;
+  --fk-warn: #f5a524;
+  --fk-danger: #f4495d;
+
+  position: fixed;
+  z-index: 2147483646;
+  bottom: 18px;
+  right: 18px;
+  width: 188px;
+  padding: 12px 13px 11px;
+  background: var(--fk-surface);
+  border: 1px solid var(--fk-line);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--fk-text);
+  user-select: none;
+  cursor: grab;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+#flowkeep-badge.fk-dragging {
+  cursor: grabbing;
+  opacity: 0.92;
+}
+
+#flowkeep-badge .fk-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 7px;
+}
+
+#flowkeep-badge .fk-label {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fk-muted);
+}
+
+#flowkeep-badge .fk-count {
+  font-family: ui-monospace, "SF Mono", "Menlo", monospace;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: var(--fk-text);
+}
+
+#flowkeep-badge .fk-track {
+  position: relative;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--fk-ink);
+  overflow: hidden;
+  border: 1px solid var(--fk-line);
+}
+
+#flowkeep-badge .fk-fill {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  border-radius: 99px;
+  background: var(--fk-safe);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1), background 0.4s ease;
+}
+
+#flowkeep-badge.fk-warn .fk-fill { background: var(--fk-warn); }
+#flowkeep-badge.fk-danger .fk-fill { background: var(--fk-danger); }
+
+#flowkeep-badge .fk-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 9px;
+}
+
+#flowkeep-badge .fk-reset {
+  font-size: 10px;
+  color: var(--fk-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+#flowkeep-badge .fk-handoff {
+  appearance: none;
+  border: 1px solid var(--fk-line);
+  background: transparent;
+  color: var(--fk-text);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 4px 8px;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+#flowkeep-badge .fk-handoff:hover {
+  border-color: var(--fk-safe);
+  background: rgba(45, 212, 191, 0.08);
+}
+
+#flowkeep-badge .fk-handoff:focus-visible {
+  outline: 2px solid var(--fk-safe);
+  outline-offset: 2px;
+}
+
+#flowkeep-badge.fk-collapsed {
+  width: auto;
+  padding: 8px 10px;
+}
+#flowkeep-badge.fk-collapsed .fk-track,
+#flowkeep-badge.fk-collapsed .fk-foot,
+#flowkeep-badge.fk-collapsed .fk-label {
+  display: none;
+}
+
+/* pre-flight warning that hangs above Claude's composer */
+#flowkeep-preflight {
+  position: fixed;
+  z-index: 2147483646;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 96px;
+  max-width: 520px;
+  display: none;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 13px;
+  background: #1d1206;
+  border: 1px solid #573a12;
+  border-radius: 10px;
+  color: #f6c97a;
+  font-family: ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-size: 12.5px;
+  line-height: 1.35;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+#flowkeep-preflight.fk-show { display: flex; }
+
+#flowkeep-preflight .fk-pf-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: var(--fk-warn, #f5a524);
+  flex: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #flowkeep-badge .fk-fill { transition: none; }
+}

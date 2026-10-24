@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "FlowKeep — AI Session Manager",
+  "version": "0.1.0",
+  "description": "Live token tracking, pre-flight checks, auto snapshots, and one-click handoff so you never lose flow when an LLM hits its limit.",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "notifications",
+    "alarms"
+  ],
+  "host_permissions": [
+    "https://claude.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "background.js"
+    ],
+    "type": "module"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://claude.ai/*"
+      ],
+      "js": [
+        "lib/browser-polyfill.js",
+        "src/tokenizer.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/badge.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "src/inject.js"
+      ],
+      "matches": [
+        "https://claude.ai/*"
+      ]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "flowkeep@flowkeep.app",
+      "strict_min_version": "121.0"
+    }
+  }
+}
